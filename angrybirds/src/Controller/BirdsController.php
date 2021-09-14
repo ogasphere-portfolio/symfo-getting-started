@@ -26,8 +26,7 @@ class BirdsController extends AbstractController
     }
 
     /**
-     * @route("/bird/{id}", methods={"GET","HEAD"})", name="bird_content")
-     *
+     * @route("/bird/{id}", name="bird_content", methods={"GET","HEAD"})"
      * @param  mixed $id
      * @return void
      */
