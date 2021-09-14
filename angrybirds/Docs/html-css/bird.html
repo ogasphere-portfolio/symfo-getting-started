@@ -8,9 +8,8 @@
     <!-- https://www.jsdelivr.com/package/npm/bootswatch dossier dist/lumen -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.6.0/dist/lumen/bootstrap.min.css">
     <!-- Custom CSS -->
-     <link rel="stylesheet" href="{{ asset("css/site.css") }}">
+    <link rel="stylesheet" href="css/site.css">
 </head>
-{% block head %}{% endblock %}
 <body>
     
     <!-- Navbar -->
@@ -40,7 +39,28 @@
         </div>
     </nav>
 
-    {% block body %}{% endblock %}
+    <main class="container main-content">
+
+        <div class="jumbotron mt-3 bird-detail">
+            <h1 class="display-4">Red Bird</h1>
+
+            <div class="row">
+                <div class="col-3">
+                    <img class="bird-card__image" src="images/red.png" width="50%">
+                </div>
+                <div class="col-9">
+                    <p class="lead">The first avian missile players encounter when they start the game, the red bird follows a simple trajectory when launched.</p>
+                </div>
+            </div>
+
+
+            <hr class="my-4">
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="index.html" role="button">Back to list</a>
+            </p>
+        </div>
+
+    </main>
 
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

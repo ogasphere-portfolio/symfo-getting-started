@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block head %}
+ <!-- Header -->
+    <header class="container">
+        <div class="jumbotron mt-3 home-header">
+            <h1 class="display-4">A Field Guide to Angry Birds</h1>
+            <p class="lead">Games that lodge in the brain often have comical stars !</p>
+                <hr class="my-4">
+                <p>To celerate the new year and have the birds with you all day long, here's a gift !</p>
+                <p class="lead">
+                    <a class="btn btn-primary btn-md" href="#" role="button">Download PDF Calendar</a>
+                </p>
+        </div>
+    </header>
+ {% endblock %}
+
+ {% block body %}
+   <main class="container main-content">
+        <div class="row">
+           
+            {% for bird in birds %}
+                        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+                            <div class="card mb-3 bird-card">
+                                <a href="bird.html">
+                                    <h3 class="card-header bird-card__title">{{ bird.name|e }}</h3>
+                                    <img class="bird-card__image" src="{{ asset("images/")}}{{bird.image}}" width="100%">
+                                </a>
+                            </div>
+                        </div>
+            {% endfor %}
+
+        </div>
+
+    </main>
+
+  {% endblock %}

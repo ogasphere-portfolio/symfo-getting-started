@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<body>
+    
+   
+ 
+    <main class="container main-content">
+
+        <div class="jumbotron mt-3 bird-detail">
+            <h1 class="display-4">{{birds.name}}</h1>
+
+            <div class="row">
+                <div class="col-3">
+                    <img class="bird-card__image" src="{{ asset("images/")}}{{birds.image}}"  width="50%">
+                </div>
+                <div class="col-9">
+                    <p class="lead">{{birds.description}}</p>
+                </div>
+            </div>
+
+
+            <hr class="my-4">
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="index.html" role="button">Back to list</a>
+            </p>
+        </div>
+
+    </main>
+{% endblock %}
+ 
