@@ -17,6 +17,18 @@
 
  {% block body %}
    <main class="container main-content">
+
+ 
+		{% if last_bird %}
+			<div class="jumbotron mt-3 home-header">
+				<p class="lead">
+					Le dernier oiseau visité est :
+					{{ last_bird.name}}
+				</p>
+			</div>
+		{% endif %}
+        <div class="row">
+
         <div class="row">
            
             {% for key, bird in birds %}
