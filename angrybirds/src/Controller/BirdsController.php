@@ -44,12 +44,12 @@ class BirdsController extends AbstractController
         la méthode render cherche les templates à partir du dossier templates
         */
 
-        return $this->render('home.html.twig', [
+        return $this->render('bird/home.html.twig', [
             'birds' => $birds,
             'last_bird' => $lastBird,
         ]);
        
-        return $this->render('home.html.twig', ['birds' => $birds]);
+        return $this->render('bird/home.html.twig', ['birds' => $birds]);
     }
 
     /**
@@ -72,7 +72,7 @@ class BirdsController extends AbstractController
         }
             // on ajoute l'oiseau en session
             $session->set('last_bird', $bird);
-            return $this->render('showbird.html.twig', ['birds' => $bird]); 
+            return $this->render('bird/showbird.html.twig', ['birds' => $bird]); 
     }
 
     /**
@@ -88,7 +88,7 @@ class BirdsController extends AbstractController
             throw $this->createNotFoundException('The oisal does not exist');        
         }
 
-        return $this->render('showbird.html.twig', [
+        return $this->render('bird/showbird.html.twig', [
             'birds' => $bird,
         ]);
     }
