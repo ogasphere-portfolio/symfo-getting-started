@@ -23,7 +23,7 @@
            
                         <div class="col-6 col-sm-6 col-md-4 col-lg-3">
                             <div class="card mb-3 bird-card">
-                                <a href="{{ absolute_url(path('bird_content', {id : key})) }}">
+                                <a href={{ absolute_url(path('bird_content', {id : key})) }}>
                                     <h3 class="card-header bird-card__title">{{ bird.name|e }}</h3>
                                     <img class="bird-card__image" src="{{ asset("images/")}}{{bird.image}}" width="100%">
                                 </a>
