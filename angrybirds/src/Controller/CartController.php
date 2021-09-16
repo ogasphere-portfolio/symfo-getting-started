@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\BirdModel;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -11,35 +12,51 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CartController extends AbstractController
 {
-    /**
-     * @Route("/cart", name="cart")
-     */
-    public function index(): Response
-    {
-        $birdModel = new BirdModel();
-        $bird = $birdModel->getAll();
-        return $this->render('cart/cart.html.twig', [
-            'birds' => $bird,
-        ]);
-    }
+   
 
      /**
-     * @Route("/cart/{name}", name="addcart")
+     * @Route("/cart/", name="addcart")
      */
-    public function cartList($name, SessionInterface $session)
+    // public function addtoCart(Request $requestObject,SessionInterface $session, BirdModel $birdModel) : response
+    public function addtoCart(Request $requestObject,SessionInterface $session) : response
     {
         $birdModel = new BirdModel();
-        $bird = $birdModel->getbyname($name);
+         // récupérer  les données (l'identifiant) depuis le formulaire
+        // comme on est en method POST sur le formulaire, 
+        // on utilise request->request
+         // dump($requestObject);
+         $birdId = $requestObject->request->get('bird_id'); // pour récupérer dans le tableau $_POST
+         // $requestObject->query->get('toto'); // pour récupérer dans le tableau $_GET
+ 
+         // validation des données
+         $bird = $birdModel->get($birdId);
+ 
+         if ($bird !== null)
+         {
+            
+            // récupérer les données depuis la session
+            // si il n'y a rien en session on récupére un tableau vide : [] 
+            $currentCart = $session->get('cart', []);
 
-          // si l'utilisateur a saisi un identifiant invalide
-        // on récupère une valeur nulle dans la variable $bird
-        // et on affiche une 404
-        if ($bird === null) {
-            // affiche une page 404 avec le message d'erreur fournit en argument
-            throw $this->createNotFoundException('The oisal does not exist'); 
-          
-        };
+                // si la clef n'existe pas 
+            if (! isset($currentCart[$birdId])) {
+                // alors on crée une entrée avec une quantité à 0
+                
+                $currentCart[$birdId] = [
+                    'quantite' => 0,
+                    'bird' => $bird
+                ];
+            }
+            // à partir de cette ligne il y a forcément une entrée pour notre birdId
+            // dans tout les cas on incrémente de 1 la quantité
+            $currentCart[$birdId]['quantite']++;
 
+            // écraser l'ancien panier avec le tableau que l'on vient de modifier
+            // ajout dans la session
+            $session->set('cart', $currentCart);
+
+         }
+ 
         $this->addFlash('notice','L\'oiseau à été ajouté au panier!');
 
         // on ajoute l'oiseau en session
@@ -48,7 +65,22 @@ class CartController extends AbstractController
 
        
        
-       return $this->render('cart/cart.html.twig', ['birds' => $bird]); 
+       // on redirige vers la meme page
+        return $this->redirectToRoute('cart_show');
     }
     
+/**
+     * display cart
+     *
+     * @Route("/cart/show", name="cart_show")
+     */
+    public function show(SessionInterface $session) {
+
+        $session->get('cart');
+        return $this->render('cart/cart.html.twig', [
+            'cart' => $session->get('cart', []),
+        ]);
+      
+
+    }
 }

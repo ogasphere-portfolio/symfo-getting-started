@@ -25,8 +25,8 @@
 						<a class="btn btn-primary btn-lg " href="{{ path("home") }}" role="button">Back to list</a>
 					</p>
 
-					 <form method="POST">
-                    <input type="hidden" value="{{ bird_id }}" />
+					 <form method="POST" action = "{{ path("addcart") }}">
+                    <input type="hidden" name = "bird_id" value="{{ bird_id }}" />
                     <button class="btn btn-success btn-lg mx-2" role="button">Add to cart</button>
                 </form>
 

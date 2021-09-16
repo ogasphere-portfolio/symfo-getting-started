@@ -1,26 +1,64 @@
-{% extends "base.html.twig" %}
-
-
+{% extends 'base.html.twig' %}
 
 {% block body %}
-   <main class="container main-content">
-
-        <div class ="row">
-            {% for bird in birds %}
-
-            
-                <div class="col-1">
-                    <img class="bird-card__image" src="{{ asset("images/")}}{{bird.image}}" width="50%">
-                </div>   
-                <div class="col-11">
-                    <h3 >{{ bird.name|e }}</h3>
-                    <h4> Quantité </h4>
-
-                </div>       
-            {% endfor %}
-
+    <header class="container">
+        <div class="jumbotron mt-3 home-header">
+            <h1 class="display-4">Cart list</h1>
         </div>
-
+    </header>
+    <main class="container main-content">
+    
+        <div class="jumbotron mt-3 bird-detail">
+            <div class="row text-center">
+                <div class="col">
+                    <h4>Image</h4>
+                </div>
+                <div class="col">
+                    <h4>Nom</h4>
+                </div>
+                <div class="col">
+                    <h4>Quantité</h4>
+                </div>
+                <div class="col">
+                    <h4>Ajouter</h4>
+                </div>
+                <div class="col">
+                    <h4>Enlever</h4>
+                </div>
+                <div class="col">
+                    <h4>Supprimer</h4>
+                </div>
+            </div>
+            <hr class="my-4">
+            {% for bird_id, bird_info in cart %}
+                <div class="row text-center">
+                    <div class="col">
+                        <img src="{{ asset('images/' ~ bird_info.bird.image ) }}" width="50%">
+                    </div>
+                    <div class="col">
+                        <p>{{ bird_info.bird.name }}</p>
+                    </div>
+                    <div class="col">
+                        <p>{{ bird_info.quantite }}</p>
+                    </div>
+                    <div class="col">
+                        <form method="POST" action="{{ path("addcart") }}">
+                            <input type="hidden" value="{{ bird_id }}" name="bird_id" />
+                            <button class="btn btn-primary">+</button>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-primary">-</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-primary">X</button>
+                    </div>
+                </div>
+                <hr class="my-4">
+            {% endfor %}
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{{ path('home') }}" role="button">Back to list</a>
+            </p>
+        </div>
     </main>
-
 {% endblock %}
