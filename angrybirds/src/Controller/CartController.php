@@ -55,12 +55,19 @@ class CartController extends AbstractController
             // ajout dans la session
             $session->set('cart', $currentCart);
 
-         }
- 
-        $this->addFlash('notice','L\'oiseau à été ajouté au panier!');
+            $this->addFlash('success', "Ok oiseau {$bird['name']} ajouté !");
 
-        // on ajoute l'oiseau en session
-        $session->set('cart_bird', $bird);
+         }     
+        
+        else {
+            // renvoyer une 404
+            // ajouter un message flash
+           $this->addFlash("error", "Oiseau non trouvé pour l'identifiant : [{$birdId}]");
+        }
+ 
+        
+
+       
        
 
        
@@ -72,8 +79,9 @@ class CartController extends AbstractController
     /**
      * @Route("/cart/remove", name="cart_remove")
      */
-    public function removeItem(Request $requestObject, BirdModel $birdModel, SessionInterface $session): Response
+    public function removeItem(Request $requestObject,  SessionInterface $session): Response
     {
+        $birdModel = new BirdModel();
         $birdId = $requestObject->request->get('bird_id'); // pour récupérer dans le tableau $_POST
         $bird = $birdModel->get($birdId);
         if ($bird !== null)
@@ -84,17 +92,24 @@ class CartController extends AbstractController
             if ( isset($currentCart[$birdId])) {
    
                 // dans tout les cas on décrémente de 1 la quantité
-                $currentCart[$birdId]['quantite'] = $currentCart[$birdId]['quantite'] - 1;
+                $currentCart[$birdId]['quantite'] --;
     
                 // si la quantité est inférieure ou égale 0 alors on supprime la ligne du panier
                 if ($currentCart[$birdId]['quantite'] <= 0)
                 {
                     unset($currentCart[$birdId]);
                 }
-
+                $this->addFlash('warning', 'un élément a été retiré du panier');
                 $session->set('cart', $currentCart);
             }
-            
+            else 
+            {
+                $this->addFlash('warning', 'Cet oiseau n\'est pas dans le panier');
+            }
+        }
+        else 
+        {
+            $this->addFlash("danger", "Cet oiseau n'existe pas");
         }
 
         // todo rediriger vers la page qui a appeler la méthode
@@ -102,7 +117,41 @@ class CartController extends AbstractController
         return $this->redirectToRoute('cart_show');
     }
 
-/**
+    /**
+     * @Route("/cart/delete", name="cart_delete")
+     */
+    public function deleteItem(Request $requestObject,  SessionInterface $session): Response
+    {
+        $birdModel = new BirdModel();
+        $birdId = $requestObject->request->get('bird_id'); // pour récupérer dans le tableau $_POST
+        $bird = $birdModel->get($birdId);
+
+        if ($bird !== null)
+        {
+            $currentCart = $session->get('cart', []);
+
+            // si la clef existe
+            if ( isset($currentCart[$birdId])) {
+   
+                // on supprime directement la ligne
+                unset($currentCart[$birdId]);
+                $this->addFlash('danger', 'Oiseau supprimé du panier');
+                $session->set('cart', $currentCart);
+            }
+        }
+
+        // après avoir traité un formulaire on fait une redirection
+        // pour éviter qu'un F5 relance tout le traitement de l'ancien formulaire
+
+        return $this->redirectToRoute('cart_show');
+        // return $this->render('cart/show.html.twig', [
+        //     'cart' => $currentCart,
+        // ]);
+        
+    }
+
+
+    /**
      * display cart
      *
      * @Route("/cart/show", name="cart_show")
