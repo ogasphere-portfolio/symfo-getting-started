@@ -7,14 +7,14 @@
 		<main class="container main-content">
 
 			<div class="jumbotron mt-3 bird-detail">
-				<h1 class="display-4">{{birds.name}}</h1>
+				<h1 class="display-4">{{bird.name}}</h1>
 
 				<div class="row">
 					<div class="col-3">
-						<img class="bird-card__image" src="{{ asset("images/")}}{{birds.image}}" width="50%">
+						<img class="bird-card__image" src="{{ asset("images/")}}{{bird.image}}" width="50%">
 					</div>
 					<div class="col-9">
-						<p class="lead">{{birds.description}}</p>
+						<p class="lead">{{bird.description}}</p>
 					</div>
 				</div>
 
@@ -22,12 +22,13 @@
 
 
 					<p class="button">
-						<a class="btn btn-primary btn-lg" href="{{ path("home") }}" role="button">Back to list</a>
+						<a class="btn btn-primary btn-lg " href="{{ path("home") }}" role="button">Back to list</a>
 					</p>
 
-					<p class="button">
-						<a class="btn btn-success btn-lg mx-4" href="{{ path("home") }}" role="button">Add to cart</a>
-					</p>
+					 <form method="POST">
+                    <input type="hidden" value="{{ bird_id }}" />
+                    <button class="btn btn-success btn-lg mx-2" role="button">Add to cart</button>
+                </form>
 
 				</div>
 			

@@ -8,7 +8,9 @@ namespace App\Controller;
 
 use App\Entity\BirdModel;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -23,8 +25,14 @@ class BirdsController extends AbstractController
      * @Route("/calendar", name="calendar")
      */
     public function calendar() {
+
+        // load the file from the filesystem
+        $file = new File('files/angry_birds_2015_calendar.pdf');
         // lancer le téléchargment du fichier
-        return $this->file(__DIR__ . '/../../public/files/angry_birds_2015_calendar.pdf');
+        // return $this->file(__DIR__ . '/../../public/files/angry_birds_2015_calendar.pdf');
+
+        // display the file contents in the browser instead of downloading it
+         return $this->file($file, 'my_invoice.pdf', ResponseHeaderBag::DISPOSITION_INLINE);
     }
 
     
@@ -72,7 +80,10 @@ class BirdsController extends AbstractController
         }
             // on ajoute l'oiseau en session
             $session->set('last_bird', $bird);
-            return $this->render('bird/showbird.html.twig', ['birds' => $bird]); 
+            return $this->render('bird/showbird.html.twig', [
+                'bird' => $bird,
+                'bird_id' => $id,
+            ]); 
     }
 
     /**
