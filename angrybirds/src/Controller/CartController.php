@@ -68,7 +68,40 @@ class CartController extends AbstractController
        // on redirige vers la meme page
         return $this->redirectToRoute('cart_show');
     }
+
+    /**
+     * @Route("/cart/remove", name="cart_remove")
+     */
+    public function removeItem(Request $requestObject, BirdModel $birdModel, SessionInterface $session): Response
+    {
+        $birdId = $requestObject->request->get('bird_id'); // pour récupérer dans le tableau $_POST
+        $bird = $birdModel->get($birdId);
+        if ($bird !== null)
+        {
+            $currentCart = $session->get('cart', []);
+
+            // si la clef existe
+            if ( isset($currentCart[$birdId])) {
+   
+                // dans tout les cas on décrémente de 1 la quantité
+                $currentCart[$birdId]['quantite'] = $currentCart[$birdId]['quantite'] - 1;
     
+                // si la quantité est inférieure ou égale 0 alors on supprime la ligne du panier
+                if ($currentCart[$birdId]['quantite'] <= 0)
+                {
+                    unset($currentCart[$birdId]);
+                }
+
+                $session->set('cart', $currentCart);
+            }
+            
+        }
+
+        // todo rediriger vers la page qui a appeler la méthode
+        // on redirige vers la meme page
+        return $this->redirectToRoute('cart_show');
+    }
+
 /**
      * display cart
      *

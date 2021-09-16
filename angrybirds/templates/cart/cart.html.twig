@@ -47,8 +47,11 @@
                             <button class="btn btn-primary">+</button>
                         </form>
                     </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-primary">-</button>
+                     <div class="col">
+                        <form method="POST" action="{{ path("cart_remove") }}">
+                            <input type="hidden" value="{{ bird_id }}" name="bird_id" />
+                            <button class="btn btn-primary">-</button>
+                        </form>
                     </div>
                     <div class="col">
                         <button type="button" class="btn btn-primary">X</button>
