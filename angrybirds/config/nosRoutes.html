@@ -1,0 +1,60 @@
+<h1 id="nos-routes">Nos routes</h1>
+<h2 id="liste-des-oiseaux">Liste des oiseaux</h2>
+<ul>
+<li>url : /</li>
+<li>controller : Bird</li>
+<li>méthod : list</li>
+</ul>
+<h2 id="détail-dun-oisal">Détail d'un oisal</h2>
+<ul>
+<li>url : /bird/{birdName}</li>
+<li>controller : Bird</li>
+<li>method : show</li>
+</ul>
+<h2 id="téléchargement-du-calendrier">Téléchargement du calendrier</h2>
+<ul>
+<li>url : /calendar</li>
+<li>controller : Bird</li>
+<li>method : calendar</li>
+</ul>
+<h2 id="api">Api</h2>
+<ul>
+<li>url : /api/birds</li>
+<li>controller : Api</li>
+<li>method : all</li>
+</ul>
+<h3 id="formaat-tableau">Formaat tableau</h3>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>Méthode HTTP</th>
+<th>Controller</th>
+<th>Méthode</th>
+<th>Commentaire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td><code>GET</code></td>
+<td><code>BirdController</code></td>
+<td><code>list</code></td>
+<td><code>Liste des oiseaux</code></td>
+</tr>
+<tr>
+<td><code>/bird/{id}</code></td>
+<td><code>GET</code></td>
+<td><code>BirdController</code></td>
+<td><code>show</code></td>
+<td><code>Détail d'un oiseau</code></td>
+</tr>
+<tr>
+<td><code>/calendar</code></td>
+<td><code>GET</code></td>
+<td><code>BirdController</code></td>
+<td><code>calendar</code></td>
+<td><code>Téléchargement du calendrier</code></td>
+</tr>
+</tbody>
+</table>

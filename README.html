@@ -1,0 +1,102 @@
+<h1 id="exercice-getting-started">Exercice Getting started</h1>
+<p>Vous allez mettre en place un site de fan sur les Angry Birds ! Analysons les contenus fournis pour entrevoir les fonctionnalités attendues. Les étapes de l'exercice sont détaillées ensuite.</p>
+<h2 id="exemples-de-rendu">Exemples de rendu</h2>
+<h3 id="1-liste">1. Liste</h3>
+<p><kbd><img src="README/01-list.png" alt="" /></kbd></p>
+<h3 id="2-oiseau">2. Oiseau</h3>
+<p><kbd><img src="README/02-bird.png" alt="" /></kbd></p>
+<hr />
+<h3 id="objectifs">Objectifs</h3>
+<ul>
+<li>Installer Symfony Skeleton</li>
+<li>L'enrichir au besoin via la documentation de Symfony section <em>Getting Started</em></li>
+<li>Parcourir la documentation Twig (moteur de templating)</li>
+<li>Créer un site de fans sur les Angry Birds !</li>
+</ul>
+<p>Vous travaillerez à partir de <a href="https://symfony.com/doc/current/index.html">la documentation Symfony : Getting Started</a>.</p>
+<blockquote>
+  <p>✋ <strong>Toutes les infos sont contenues dans les chapitres du <em>Getting Started</em></strong>. Pas besoin d'aller chercher les infos ailleurs pour le moment.</p>
+</blockquote>
+<h2 id="etapes-de-lexercice">Etapes de l'exercice</h2>
+<p><strong>Installation</strong></p>
+<p>Installer un nouveau projet Symfony "skeleton", via l'utilitaire <em>symfony</em> : <code>composer create-project symfony/skeleton angrybirds</code> et entrer dans le dossier du projet avec <code>cd angrybirds</code>.</p>
+<blockquote>
+  <p>✋ Si besoin de passer par Apache, on installe le <code>.htaccess</code> via <code>composer require apache-pack</code>.<br />
+  ✋ Sinon, on peut utiliser le serveur PHP <code>php -S 0.0.0.0:8000 -t public</code>.</p>
+</blockquote>
+<p><strong>Les routes</strong></p>
+<blockquote>
+  <p>✋ Lister les pages attendues afin d'en déduire les routes (URL, contrôleur, méthode, paramètres, description). Les noter dans un fichier de routes en markdown par ex.</p>
+</blockquote>
+<p><strong>Les assets</strong></p>
+<p>Dans le dossier <code>public</code> créer 2 sous-dossiers <code>images</code> et <code>files</code> et importer les fichiers de ressources dans leurs dossiers respectifs.</p>
+<blockquote>
+  <p>On s'occupera du fichier <code>data.php</code> dans quelques minutes.</p>
+  <p>✋ A ce stade la structure de notre site est en place, il ne nous reste plus qu'à coder les fonctionnalités !</p>
+</blockquote>
+<hr />
+<p><strong>Liste des oiseaux</strong></p>
+<p>Aux étapes suivantes, créer les contrôleurs, méthodes et templates nécessaires.</p>
+<ul>
+<li>Bien que le <em>yaml</em> reste possible pour l'écriture des routes, les annotations sont recommandées : les inclure au projet via <code>composer require annotations</code></li>
+<li>Vous pourrez afficher les routes dans le terminal avec <code>debug:router</code>.</li>
+</ul>
+<ol>
+<li>Récupérer la liste des oiseaux et la dumper via <code>dump()</code> depuis la page d'accueil.</li>
+</ol>
+<ul>
+<li><strong><code>data.php</code> (Model)</strong> : Pour ce faire, trouver le moyen d'intégrer les données fournies dans le projet Symfo (on cherchera une solution en PHP objet de préféfence 😉). Pas de bases de données pour le moment, on voit ça en S02 😉</li>
+</ul>
+<ol>
+<li>Créer la vue associée avec l'héritage du layout principal (Twig) d'après la capture fournie (rubrique <em>Templates</em>).</li>
+</ol>
+<ul>
+<li>Si besoin de Twig, l'inclure au projet via <code>composer require twig</code> 🖌</li>
+</ul>
+<ol>
+<li>Afficher les données brutes dans la vue (on affichera les images et on créera les liens ensuite). Cf : Boucle <a href="https://twig.symfony.com/doc/3.x/tags/for.html">for de Twig</a></li>
+</ol>
+<blockquote>
+  <p>Vous souhaitez des infos sur l'exécution de votre code ? =&gt; <code>composer require profiler</code> 🎉</p>
+</blockquote>
+<p><strong>Liens et images</strong></p>
+<p>Dans la boucle du template de liste :</p>
+<ol>
+<li>Afficher l'image de chaque oiseau (rubrique <em>Templates > Linking to Assets</em>).</li>
+<li>Générer des liens avec l'id de l'oiseau concerné (rubrique <em>Templates > Linking to Pages</em>). Trouver le moyen d'identifier un oiseau depuis le tableau.</li>
+</ol>
+<p><strong>Show bird</strong></p>
+<ol>
+<li>Récupérer l'index de l'oiseau à afficher depuis l'URL et le dumper pour vérification (rubrique <em>Routing</em>).</li>
+<li>Récupérer le data de l'oiseau, le donner à la vue et afficher le détail complet (rubrique <em>Templates</em>).</li>
+</ol>
+<ul>
+<li>Créer la vue associée avec l'héritage du layout principal d'après la capture fournie.</li>
+</ul>
+<ol>
+<li>Que faire si l'index n'existe pas dans les data ? (pensez <em>"HTTP"</em> cf rubrique <em>Controllers</em>)</li>
+<li>Créer le lien vers la page d'accueil.</li>
+</ol>
+<p><strong>Routes (suite)</strong></p>
+<p>Que faire si le paramètre <code>id</code> de la route <code>bird_show</code> n'est pas au format numérique ? Essayez de passer une chaine de caractères dans l'URL pour voir.</p>
+<ul>
+<li>Trouver le moyen de mettre des contraintes sur les paramètres de routes, ici sur l'id de l'oiseau qui doit être un entier (rubrique <em>Routing > Parameters Validation</em>).</li>
+</ul>
+<p><strong>PDF</strong></p>
+<p>Trouver le moyen de <em>forcer le téléchargement direct</em> du PDF <em>sans chargement d'une nouvelle page</em> (rubrique <em>Controllers > Streaming File Responses</em>).</p>
+<p><strong>API</strong></p>
+<p>Cela n'est pas précisé dans les captures mais vous pourriez proposer un accès API/JSON qui renvoie les données des oiseaux vers une appli front.</p>
+<ul>
+<li>Récupérer l'ensemble des data et les encoder en JSON (rubrique <em>Controllers > Returning JSON Response</em>).</li>
+</ul>
+<p><strong>Front: CSS et Twig cycle()</strong></p>
+<ol>
+<li>Intégrer la maquette ou un thème de votre choix, au plus simple/rapide 😉</li>
+<li>Gérer l'alternance de couleurs avec la fonction <a href="https://twig.symfony.com/doc/3.x/functions/cycle.html">cycle de Twig</a></li>
+</ol>
+<h2 id="lectures">Lectures</h2>
+<ul>
+<li>Parcourir <a href="https://symfony.com/doc/current/contributing/code/standards.html">les conventions de codage et de nommage de Symfony</a>.  <br />
+Elles vous permettront d'avoir <strong>une base pour l'écriture de votre code</strong>.</li>
+<li><a href="https://symfony.com/doc/current/introduction/http_fundamentals.html">Les fondamentaux HTTP, vus par Symfony</a>.</li>
+</ul>
