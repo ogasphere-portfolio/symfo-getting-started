@@ -1,3 +1,3 @@
-#home:
-#    path: /
-#    controller: App\Controller\BirdsController::list
+controllers:
+    resource: ../src/Controller/
+    type: annotation

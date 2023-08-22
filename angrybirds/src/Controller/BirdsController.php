@@ -1,12 +1,7 @@
 <?php
 
-
-
-
 namespace App\Controller;
-
-
-use App\Entity\BirdModel;
+use App\Model\BirdModel;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class BirdsController extends AbstractController
 {
     
-   
     /**
      * téléchargement du calendrier
      *
@@ -47,7 +41,7 @@ class BirdsController extends AbstractController
         $birdModel = new BirdModel();
         $birds = $birdModel->getAll();
         $lastBird = $session->get('last_bird');
-        // dump($birds);
+        
         /*
         la méthode render cherche les templates à partir du dossier templates
         */
@@ -56,12 +50,10 @@ class BirdsController extends AbstractController
             'birds' => $birds,
             'last_bird' => $lastBird,
         ]);
-       
-        return $this->render('bird/home.html.twig', ['birds' => $birds]);
     }
 
     /**
-     * @route("/bird/{id}", name="bird_content", methods={"GET","HEAD"}, requirements={"id"="\d+"})"
+     * @route("/bird/{id}", name="bird_content", methods={"GET","HEAD"})"
      * @param  mixed $id
      * @return void
      */
@@ -69,7 +61,7 @@ class BirdsController extends AbstractController
     {
         $birdModel = new BirdModel();
         $bird = $birdModel->get($id);
-
+        
           // si l'utilisateur a saisi un identifiant invalide
         // on récupère une valeur nulle dans la variable $bird
         // et on affiche une 404
@@ -100,7 +92,7 @@ class BirdsController extends AbstractController
         }
 
         return $this->render('bird/showbird.html.twig', [
-            'birds' => $bird,
+            'bird' => $bird,
         ]);
     }
 }
